@@ -1,0 +1,77 @@
+<html>
+
+<head>
+	<title>Video sync test</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="style.css">
+	
+</head>
+<body>
+    <h1>HTML5 video sync test</h1>
+    <p> 
+        The main video on the left controls (start/stop/scrub) the right-hand video. The two videos will stay in sync when controlled 
+        by the first.
+    </p> 
+    <p> 
+        Double click expands to full screen.
+        The deviation is for debug purposes.
+    </p> 
+	<div class="container">
+		<div class="row" id="static-rgb">
+			<div id="static-layer-1" class="col-md-1 static-rgb"></div>
+			<div id="static-layer-2" class="col-md-1 static-rgb"></div>
+		</div>
+		<br />
+		<div class="row" id="videoInterlace">
+			<!-- start of channel 1 -->
+			<div id="video-canvas-R" class="col-md-4">
+				<!-- <video height="180px" width="100%" id="video-channel-1" class="video-channel" oncanplay="readyVidInterlace();" src="vid/Big_Buck_Bunny_small.ogv"></video> -->
+				<video id="video-channel-1" class="video-channel" oncanplay="readyVidInterlace();" src="vids/vid1.mp4"></video>
+			</div>
+			<!-- end of channel 1 -->
+			<!-- start of channel 2 -->
+			<div id="video-canvas-G" class="col-md-4">
+				<!-- <video height="180px" width="100%" id="video-channel-2" class="video-channel" oncanplay="readyVidInterlace();" src="vid/Big_Buck_Bunny_small.ogv"></video> -->
+				<video id="video-channel-2" class="video-channel" oncanplay="readyVidInterlace();" src="vids/vid2.mp4" muted></video>
+			</div>
+			<!-- end of channel 2 -->
+		</div>
+		<div class="row" id="videoCurrentDeviation">
+			<div class="col-md-4">
+			</div>
+			<div class="col-md-4">
+				Time: <span id="current_G_Time">0</span> / <span class="totalTime_G">Video is loading just moment...</span>
+				<br /> Deviation: <span id="current_G_Deviation">0</span>
+			</div>
+		</div>
+		<div class="row" id="controls">
+			<div class="col-md-12">
+                <span id="current_R_Time">0</span> / <span class="totalTime_R">Video is loading just moment...</span>
+                <button id="play-pause">Play</button>
+                <input type="range" value="0" id="scrub" max="100" >
+			</div>
+		</div>
+		<br />
+		<div class="row" id="video-stream">
+			<div id="video-layer-1" class="col-md-6 video-stream"></div>
+			<div id="video-layer-2" class="col-md-6 video-stream"></div>
+		</div>
+
+	</div>
+
+	<script src="js/sync.js"></script>
+
+</body>
+
+</html>
