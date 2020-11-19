@@ -23,13 +23,14 @@ function readyVidInterlace() {
 function vidDeviationControl() {
     function updateVideoStats() {
         var current_R_Time, current_G_Time;
-
+        var scrub_coeff = 200/vidR.duration;
         if ((!vidR.seeking) && (!vidG.seeking)) {
             current_R_Time = vidR.currentTime.toFixed(3);
             current_G_Time = vidG.currentTime.toFixed(3);
             current_R_TimeSpan.html(current_R_Time);
             current_G_TimeSpan.html(current_G_Time);
             current_G_Deviation.html((vidR.currentTime - vidG.currentTime).toFixed(5));
+            scrub.value = current_R_Time*scrub_coeff;
         } else {
             return;
         }
@@ -78,14 +79,13 @@ $(button).click(function(e) {
     }
 });
 
-$(scrub).change(function(e){
-//                e.preventDefault();
-//                stopVideoInterlace();
-                var scrubValue = scrub.value/100;
-                vidR.currentTime = vidR.duration*scrubValue
-//                startVideoInterlace();
+$(scrub).click(function(e){
+               e.preventDefault();
+               stopVideoInterlace();
+               //var scrubValue = scrub.value/200;
+               vidR.currentTime = vidR.duration*(scrub.value/200);
+               startVideoInterlace();
 });
-
 
 $(vidR).dblclick(function(){
                  vidR.requestFullscreen()

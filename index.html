@@ -2,7 +2,7 @@
 
 <head>
 	<title>Video sync test</title>
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 	<!-- Latest compiled and minified CSS -->
@@ -15,18 +15,18 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 	<link rel="stylesheet" href="style.css">
-	
+
 </head>
 <body>
     <h1>HTML5 video sync test</h1>
-    <p> 
-        The main video on the left controls (start/stop/scrub) the right-hand video. The two videos will stay in sync when controlled 
+    <p>
+        The main video on the left controls (start/stop/scrub) the right-hand video. The two videos will stay in sync when controlled
         by the first.
-    </p> 
-    <p> 
+    </p>
+    <p>
         Double click expands to full screen.
         The deviation is for debug purposes.
-    </p> 
+    </p>
 	<div class="container">
 		<div class="row" id="static-rgb">
 			<div id="static-layer-1" class="col-md-1 static-rgb"></div>
@@ -59,7 +59,7 @@
 			<div class="col-md-12">
                 <span id="current_R_Time">0</span> / <span class="totalTime_R">Video is loading just moment...</span>
                 <button id="play-pause">Play</button>
-                <input type="range" value="0" id="scrub" max="100" >
+                <input type="range" value="0" id="scrub" max="200" >
 			</div>
 		</div>
 		<br />
