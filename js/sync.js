@@ -34,7 +34,7 @@ function vidDeviationControl() {
             return;
         }
     }
-    if ((Math.abs(vidR.currentTime - vidG.currentTime) > 0.05)) {
+    if ((Math.abs(vidR.currentTime - vidG.currentTime) > 0.075)) {
         $('#current_G_Deviation').css("background-color", "red");
         cancelAnimationFrame(vidDeviationControl);
         vidG.pause();
@@ -42,7 +42,7 @@ function vidDeviationControl() {
         vidG.currentTime = vidR.currentTime;
         vidR.play();
         vidG.play();
-    } 
+    }
     else{
          $('#current_G_Deviation').css("background-color", "transparent");
     }
