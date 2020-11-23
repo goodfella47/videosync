@@ -10,6 +10,56 @@ var vidR = document.getElementById("video-channel-1"),
     scrub = document.getElementById("scrub"),
     duration;
 
+//var mediainfo = MediaInfo({ format: 'text', locateFile: vidR.src });
+// const MediaInfo = require('mediainfo.js')
+var file = new File([], vidR.src, {
+  type: "video/mp4",
+});
+
+const get_media_info = (mediainfo) => {
+  console.log(file);
+  if (file) {
+    const getSize = () => file.size
+    const readChunk = (chunkSize, offset) =>
+      new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = (event) => {
+          if (event.target.error) {
+            reject(event.target.error)
+          }
+          resolve(new Uint8Array(event.target.result))
+        }
+        reader.readAsArrayBuffer(file.slice(offset, offset + chunkSize))
+      })
+	console.log(mediainfo);
+    mediainfo
+      .analyzeData(getSize, readChunk)
+      .then((result) => {
+      console.log(result);
+		//console.log(result.indexOf("Time code of first frame"));
+		var timecode_line = lineOf(result,"Time code of first frame");
+
+		var fps_line = lineOf(result, "Frame rate  ");
+		var split = result.split("\n");
+		var timecode = split[timecode_line].slice(-11);
+		var fps = parseFloat(split[fps_line].slice(-10,-4));
+		var t1 = Timecode(timecode,fps);
+		var t2 = Timecode("00:21:27:49",fps);
+    console.log("hi");
+		console.log(timecode);
+		console.log(fps);
+      })
+      .catch((error) => {
+        console.log(`An error occured:\n${error.stack}`);
+      })
+  }
+}
+
+MediaInfo({ format: 'text' }, (mediainfo) => {
+  get_media_info(mediainfo);
+})
+
+
 function readyVidInterlace() {
   if ((vidR.readyState >= 3) && (vidG.readyState >= 3)) {
     $('button').fadeIn();
@@ -66,6 +116,23 @@ function startVideoInterlace() {
 function stopVideoInterlace() {
     vidR.pause();
     vidG.pause();
+}
+
+function lineOf(text, substring){
+  var line = 0, matchedChars = 0;
+
+  for (var i = 0; i < text.length; i++) {
+    text[i] === substring[matchedChars] ? matchedChars++ : matchedChars = 0;
+
+    if (matchedChars === substring.length){
+        return line;
+    }
+    if (text[i] === '\n'){
+        line++;
+    }
+  }
+
+  return  -1;
 }
 
 $(button).click(function(e) {
