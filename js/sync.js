@@ -12,9 +12,10 @@ var vidR = document.getElementById("video-channel-1"),
 
 //var mediainfo = MediaInfo({ format: 'text', locateFile: vidR.src });
 // const MediaInfo = require('mediainfo.js')
-var file = new File([], vidR.src, {
-  type: "video/mp4",
-});
+// var file = new File([], vidR.src, {
+//   type: "video/mp4",
+// });
+file = loadFile("vids/vid1.mp4");
 
 const get_media_info = (mediainfo) => {
   console.log(file);
@@ -133,6 +134,17 @@ function lineOf(text, substring){
   }
 
   return  -1;
+}
+
+function loadFile(filePath) {
+  var result = null;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", filePath, false);
+  xmlhttp.send();
+  if (xmlhttp.status==200) {
+    result = xmlhttp.responseText;
+  }
+  return result;
 }
 
 $(button).click(function(e) {
